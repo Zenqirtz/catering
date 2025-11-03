@@ -1,0 +1,40 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Hilangkan scrollbar horizontal */
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+/* Smooth appearance - (Ini mungkin berasal dari library AOS, biarkan saja jika Anda menggunakannya) */
+[data-aos] {
+  transition-property: transform, opacity !important;
+}
+
+/* Staggering (penundaan berurutan) untuk item grid agar lebih menarik */
+/* Ini diperlukan karena Tailwind belum memiliki utility untuk nth-child delay */
+
+/* Animasi untuk Special Foods (muncul dari kanan) */
+.grid > div.animate-fade-in-right:nth-child(1) { animation-delay: 0.3s; }
+.grid > div.animate-fade-in-right:nth-child(2) { animation-delay: 0.4s; }
+.grid > div.animate-fade-in-right:nth-child(3) { animation-delay: 0.5s; }
+.grid > div.animate-fade-in-right:nth-child(4) { animation-delay: 0.6s; }
+.grid > div.animate-fade-in-right:nth-child(5) { animation-delay: 0.7s; }
+.grid > div.animate-fade-in-right:nth-child(6) { animation-delay: 0.8s; }
+.grid > div.animate-fade-in-right:nth-child(7) { animation-delay: 0.9s; } /* Sesuaikan jika ada lebih banyak item */
+
+/* Animasi untuk Special Beverages (muncul dari kiri) */
+.grid > div.animate-fade-in-left:nth-child(1) { animation-delay: 0.3s; }
+.grid > div.animate-fade-in-left:nth-child(2) { animation-delay: 0.4s; }
+.grid > div.animate-fade-in-left:nth-child(3) { animation-delay: 0.5s; }
+.grid > div.animate-fade-in-left:nth-child(4) { animation-delay: 0.6s; } /* Sesuaikan jika ada lebih banyak item */
+
+/* Class untuk memastikan elemen tersembunyi sebelum animasi dimulai */
+/* Ini penting karena 'forwards' hanya mempertahankan keadaan akhir animasi, bukan keadaan awalnya */
+.hide-before-animation {
+    opacity: 0;
+}
