@@ -31,7 +31,7 @@ class CartController extends Controller
                 "name" => $name,
                 "price" => $price,
                 "img" => $img,
-                "quantity" => 1
+                "quantity" => 50 // Minimal order adalah 50
             ];
         }
 
@@ -63,6 +63,7 @@ class CartController extends Controller
         $id = $request->input('id');
         $action = $request->input('action'); // 'increase' atau 'decrease' dari tombol
         $quantityInput = (int) $request->input('quantity'); // Kuantitas dari input number
+        $minQuantity = 50; // Minimal order adalah 50
 
         $cart = session()->get('cart', []);
 
@@ -70,18 +71,23 @@ class CartController extends Controller
             if ($action === 'increase') {
                 $cart[$id]['quantity']++;
             } elseif ($action === 'decrease') {
-                if ($cart[$id]['quantity'] > 1) { // Pastikan tidak kurang dari 1
+                if ($cart[$id]['quantity'] > $minQuantity) { // Pastikan tidak kurang dari 50
                     $cart[$id]['quantity']--;
                 } else {
-                    // Jika kuantitas menjadi 0 atau kurang, hapus item dari keranjang
-                    unset($cart[$id]);
+                    // Jika kuantitas kurang dari 50, kembalikan ke 50
+                    $cart[$id]['quantity'] = $minQuantity;
                     session()->put('cart', $cart);
-                    return redirect()->back()->with('success', 'Produk dihapus dari keranjang!');
+                    return redirect()->back()->with('error', 'Minimal order adalah 50 pcs per item!');
                 }
             } else {
                 // Ini akan dijalankan jika form disubmit karena 'onchange' pada input number
                 // atau jika ada cara lain form disubmit tanpa action 'increase'/'decrease'
-                $cart[$id]['quantity'] = max(1, $quantityInput); // Pastikan minimal 1
+                if ($quantityInput < $minQuantity) {
+                    $cart[$id]['quantity'] = $minQuantity;
+                    session()->put('cart', $cart);
+                    return redirect()->back()->with('error', 'Minimal order adalah 50 pcs per item!');
+                }
+                $cart[$id]['quantity'] = $quantityInput;
             }
             session()->put('cart', $cart);
         }
@@ -96,6 +102,14 @@ class CartController extends Controller
         if (empty($cart)) {
             return redirect()->route('cart.index')->with('error', 'Keranjang masih kosong!');
         }
+
+        // Validasi minimal order 50 untuk setiap item
+        $minQuantity = 50;
+        foreach ($cart as $id => $item) {
+            if ($item['quantity'] < $minQuantity) {
+                return redirect()->route('cart.index')->with('error', 'Minimal order adalah 50 pcs per item! Item "' . $item['name'] . '" hanya memiliki ' . $item['quantity'] . ' pcs.');
+            }
+        }
         
         return view('checkout', compact('cart'));
     }
@@ -106,6 +120,14 @@ class CartController extends Controller
         
         if (empty($cart)) {
             return redirect()->route('cart.index')->with('error', 'Keranjang kosong.');
+        }
+
+        // Validasi minimal order 50 untuk setiap item sebelum checkout
+        $minQuantity = 50;
+        foreach ($cart as $id => $item) {
+            if ($item['quantity'] < $minQuantity) {
+                return redirect()->route('cart.index')->with('error', 'Minimal order adalah 50 pcs per item! Item "' . $item['name'] . '" hanya memiliki ' . $item['quantity'] . ' pcs.');
+            }
         }
 
         // Hitung total

@@ -38,7 +38,7 @@
                     @foreach($orders as $order)
                         @foreach($order->items as $index => $item)
                         <tr class="{{ $loop->parent->index % 2 === 0 ? 'bg-white' : 'bg-gray-50' }}">
-                            <td class="px-6 py-4 whitespace-nowrap text-sm {{ $index === 0 ? 'font-medium text-gray-900' : 'text-gray-900' }}">
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
                                 {{ $item->product_name }}
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ $item->quantity }}</td>
@@ -48,10 +48,10 @@
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap" rowspan="{{ count($order->items) }}">
                                 <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full 
-                                    @if($order->status == 'pending') bg-yellow-100 text-yellow-800
-                                    @elseif($order->status == 'completed') bg-green-100 text-green-800
-                                    @elseif($order->status == 'delivered') bg-blue-100 text-blue-800
-                                    @elseif($order->status == 'cancelled') bg-red-100 text-red-800
+                                    @if($order->status == 'pending') bg-gray-100 text-gray-800
+                                    @elseif($order->status == 'invalid') bg-red-100 text-red-800
+                                    @elseif($order->status == 'process') bg-yellow-100 text-yellow-800
+                                    @elseif($order->status == 'done') bg-green-100 text-green-800
                                     @else bg-gray-100 text-gray-800 @endif">
                                     {{ strtoupper($order->status) }}
                                 </span>

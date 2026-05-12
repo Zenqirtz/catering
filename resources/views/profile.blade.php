@@ -19,7 +19,11 @@
         <div class="flex items-center space-x-8 mb-10">
             <div class="w-28 h-28 rounded-full bg-gray-200 flex items-center justify-center text-gray-400 text-5xl overflow-hidden">
                 @if($user->photo)
-                    <img src="{{ asset('storage/photos/' . $user->photo) }}" alt="Profile Photo" class="w-full h-full object-cover">
+                    <img src="{{ asset('storage/photos/' . $user->photo) }}" 
+                         alt="Profile Photo" 
+                         class="w-full h-full object-cover"
+                         onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                    <i class="fas fa-user" style="display: none;"></i>
                 @else
                     <i class="fas fa-user"></i>
                 @endif
@@ -58,15 +62,16 @@
                                         <p class="text-sm text-gray-500">Tanggal: {{ $order->created_at->format('d F Y') }}</p>
                                         <p class="text-sm text-gray-500">Qty: {{ $item->quantity }} × Rp {{ number_format($item->price, 0, ',', '.') }}</p>
                                     </div>
-                                    <span class="text-sm 
-                                        @if($order->status == 'completed') bg-green-100 text-green-700
-                                        @elseif($order->status == 'pending') bg-yellow-100 text-yellow-700
-                                        @elseif($order->status == 'delivered') bg-blue-100 text-blue-700
-                                        @elseif($order->status == 'cancelled') bg-red-100 text-red-700
+                                   <span class="text-sm 
+                                        @if($order->status == 'pending') bg-gray-100 text-black-700
+                                        @elseif($order->status == 'process') bg-yellow-100 text-yellow-700
+                                        @elseif($order->status == 'invalid') bg-red-100 text-red-700
+                                        @elseif($order->status == 'done') bg-green-100 text-green-700
                                         @else bg-gray-100 text-gray-700 @endif
                                         px-3 py-1 rounded-full font-semibold">
                                         {{ strtoupper($order->status) }}
                                     </span>
+
                                 </li>
                             @endforeach
                         @endforeach

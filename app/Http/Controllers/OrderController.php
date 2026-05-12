@@ -18,4 +18,21 @@ class OrderController extends Controller
 
         return view('orders', compact('orders'));
     }
+
+    public function updateStatus(Request $request, $id)
+    {
+        $order = Order::where('id', $id)
+                    ->where('user_id', Auth::id())
+                    ->firstOrFail();
+
+        $validated = $request->validate([
+            'status' => 'required|in:pending,invalid,process,done'
+        ]);
+
+        $order->update([
+            'status' => $validated['status']
+        ]);
+
+        return redirect()->route('orders.index')->with('success', 'Status pesanan berhasil diperbarui!');
+    }
 }

@@ -5,98 +5,157 @@
 @section('content')
 <main class="max-w-7xl mx-auto py-16 px-6">
     <!-- Special Foods Section -->
-    <section class="mb-20">
-        <h2 class="text-4xl md:text-5xl font-extrabold text-center text-gray-900 mb-4 animate-fade-in-down hide-before-animation">
-            Our Special Foods
-        </h2>
-        <p class="text-center text-gray-600 mb-12 text-lg animate-fade-in-up hide-before-animation">
-            This lesson provides a basic framework for conducting a recipe demonstration
-        </p>
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-8">
-            @foreach([
-                ['id' => 'food_1', 'img' => 'menu1.png', 'title' => 'Ricebowl Ayam Sushi', 'price' => 'Rp 10.000'],
-                ['id' => 'food_2', 'img' => 'menu2.png', 'title' => 'Ricebowl Chicken Pepperoni', 'price' => 'Rp 15.000'],
-                ['id' => 'food_3', 'img' => 'menu3.png', 'title' => 'Ricebowl Chicken Fillet', 'price' => 'Rp 16.000'],
-                ['id' => 'food_4', 'img' => 'menu4.png', 'title' => 'Chicken Katsu', 'price' => 'Rp 18.000'],
-                ['id' => 'food_5', 'img' => 'menu5.png', 'title' => 'Nasi Kotak Beef Teriyaki', 'price' => 'Rp 18.000'],
-                ['id' => 'food_6', 'img' => 'menu6.png', 'title' => 'Nasi Kotak Campur', 'price' => 'Rp 15.000'],
-                ['id' => 'food_7', 'img' => 'menu7.png', 'title' => 'Nasi Kotak Chicken Teriyaki', 'price' => 'Rp 15.000'],
-            ] as $item)
-            <div class="bg-white rounded-2xl shadow-lg flex flex-col items-center p-6 transition-all duration-300 hover:scale-105 hover:shadow-2xl min-h-[350px] animate-fade-in-right hide-before-animation">
-                <img src="{{ asset('img/'.$item['img']) }}" alt="{{ $item['title'] }}" class="object-contain w-full h-32 mb-4 rounded">
-                <h3 class="font-semibold text-lg text-gray-800 mb-2 text-center flex-grow">{{ $item['title'] }}</h3>
-                <div class="flex items-center justify-center mb-2">
-                    <i class="fas fa-star text-yellow-400 text-sm"></i>
-                    <span class="text-gray-600 text-sm ml-1">4.0</span>
+    <section class="mb-24">
+        <div class="text-center mb-16">
+            <span class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-50 text-[#036EA6] font-bold text-sm tracking-widest uppercase mb-4 border border-blue-100">Our Menu</span>
+            <h2 class="text-4xl md:text-5xl font-extrabold text-gray-900 mb-4 animate-fade-in-down hide-before-animation tracking-tight">
+                Our Special Foods
+            </h2>
+            <p class="text-gray-500 text-lg animate-fade-in-up hide-before-animation max-w-2xl mx-auto">
+                Discover our delicious selection of premium meals, prepared fresh daily to energize your busy day.
+            </p>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+            @forelse($foods as $menu)
+            <div class="group bg-white rounded-[2rem] border border-gray-100 shadow-[0_4px_20px_rgba(0,0,0,0.03)] flex flex-col p-5 transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_20px_40px_rgba(3,110,166,0.1)] min-h-[380px] animate-fade-in-right hide-before-animation relative overflow-hidden">
+                <!-- Image Container -->
+                <div class="relative w-full h-48 bg-[#f8fafc] rounded-2xl flex justify-center items-center overflow-hidden mb-5">
+                    <div class="absolute inset-0 bg-gradient-to-b from-transparent to-black/5 z-10"></div>
+                @if($menu->image)
+                    @if(str_contains($menu->image, 'img/'))
+                        <!-- Gambar dari public/img/ -->
+                        <img src="{{ asset($menu->image) }}" alt="{{ $menu->name }}" class="object-cover w-full h-full group-hover:scale-110 transition-transform duration-700 relative z-0">
+                    @elseif(file_exists(public_path('storage/menus/' . $menu->image)))
+                        <!-- Gambar dari storage -->
+                        <img src="{{ asset('storage/menus/' . $menu->image) }}" alt="{{ $menu->name }}" class="object-cover w-full h-full group-hover:scale-110 transition-transform duration-700 relative z-0">
+                    @else
+                        <!-- Gambar tidak ditemukan -->
+                        <div class="w-full h-32 bg-gray-200 rounded-lg flex items-center justify-center mb-4">
+                            <i class="fas fa-utensils text-gray-400 text-2xl"></i>
+                        </div>
+                    @endif
+                @else
+                    <div class="w-full h-32 bg-gray-200 rounded-lg flex items-center justify-center mb-4">
+                        <i class="fas fa-image text-gray-400 text-2xl"></i>
+                    </div>
+                @endif
                 </div>
-                <p class="text-[#036EA6] font-bold text-xl mb-4">{{ $item['price'] }}</p>
+                <div class="flex items-start justify-between mb-2">
+                    <h3 class="font-bold text-xl text-gray-900 group-hover:text-[#036EA6] transition-colors leading-tight line-clamp-2 pr-2">{{ $menu->name }}</h3>
+                    <div class="flex items-center bg-yellow-50 px-2 py-1 rounded-md shrink-0">
+                        <i class="fas fa-star text-yellow-400 text-xs"></i>
+                        <span class="font-bold text-gray-700 text-xs ml-1">4.8</span>
+                    </div>
+                </div>
+                <p class="text-gray-500 text-sm mb-4 line-clamp-2 flex-grow">Healthy and delicious meal perfectly crafted for your taste.</p>
+                
+                <div class="mt-auto flex items-end justify-between border-t border-gray-50 pt-4">
+                    <div>
+                        <p class="text-xs text-gray-400 line-through font-medium mb-0.5">Rp {{ number_format($menu->price + 5000, 0, ',', '.') }}</p>
+                        <p class="text-2xl font-extrabold text-[#036EA6] leading-none">Rp {{ number_format($menu->price, 0, ',', '.') }}</p>
+                    </div>
 
                 <!-- Tombol tambah ke keranjang -->
                 <form action="{{ route('cart.add') }}" method="POST">
                     @csrf
-                    <input type="hidden" name="id" value="{{ $item['id'] }}"> {{-- Menggunakan ID unik --}}
-                    <input type="hidden" name="name" value="{{ $item['title'] }}">
-                    <input type="hidden" name="price" value="{{ preg_replace('/[^0-9]/', '', $item['price']) }}">
-                    <input type="hidden" name="img" value="{{ $item['img'] }}">
-                    <button type="submit" class="bg-[#036EA6] hover:bg-[#025a87] active:scale-95 rounded-full w-10 h-10 flex items-center justify-center transition-all duration-200 mt-auto">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
-                        </svg>
+                    <input type="hidden" name="id" value="menu_{{ $menu->id }}">
+                    <input type="hidden" name="name" value="{{ $menu->name }}">
+                    <input type="hidden" name="price" value="{{ $menu->price }}">
+                    <input type="hidden" name="img" value="{{ $menu->image }}">
+                    <button type="submit" class="w-12 h-12 rounded-full bg-blue-50 text-[#036EA6] flex items-center justify-center hover:bg-gradient-to-r hover:from-[#036EA6] hover:to-[#00A3FF] hover:text-white transition-all duration-300 hover:rotate-90 shadow-sm hover:shadow-md mt-auto">
+                        <i class="fas fa-plus text-lg"></i>
                     </button>
                 </form>
+                </div>
             </div>
-            @endforeach
+            @empty
+            <div class="col-span-full text-center py-12">
+                <p class="text-gray-500 text-lg">Belum ada menu makanan.</p>
+            </div>
+            @endforelse
         </div>
     </section>
 
     <!-- Special Beverages Section -->
-    <section class="mb-20">
-        <h2 class="text-4xl md:text-5xl font-extrabold text-center text-gray-900 mb-4 animate-fade-in-down hide-before-animation">
-            Our Special Beverages
-        </h2>
+    <section class="mb-24">
+        <div class="text-center mb-16">
+            <span class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-50 text-[#036EA6] font-bold text-sm tracking-widest uppercase mb-4 border border-blue-100">Refreshments</span>
+            <h2 class="text-4xl md:text-5xl font-extrabold text-gray-900 mb-4 animate-fade-in-down hide-before-animation tracking-tight">
+                Our Special Beverages
+            </h2>
+        </div>
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
-            @foreach([
-                ['id' => 'drink_1', 'img' => 'esteh.png', 'title' => 'Ice Tea', 'price' => 'Rp 10.000'],
-                ['id' => 'drink_2', 'img' => 'aqua.png', 'title' => 'Aqua 1 Box', 'price' => 'Rp 13.000'],
-                ['id' => 'drink_3', 'img' => 'club.png', 'title' => 'Club 1 Box', 'price' => 'Rp 15.000'],
-                ['id' => 'drink_4', 'img' => 'cleo.png', 'title' => 'Cleo 1 Box', 'price' => 'Rp 18.000'],
-            ] as $item)
-            <div class="bg-white rounded-2xl shadow-lg flex flex-col items-center p-6 transition-all duration-300 hover:scale-105 hover:shadow-2xl min-h-[350px] animate-fade-in-left hide-before-animation">
-                <img src="{{ asset('img/'.$item['img']) }}" alt="{{ $item['title'] }}" class="object-contain w-full h-32 mb-4 rounded">
-                <h3 class="font-semibold text-lg text-gray-800 mb-2 text-center flex-grow">{{ $item['title'] }}</h3>
-                <div class="flex items-center justify-center mb-2">
-                    <i class="fas fa-star text-yellow-400 text-sm"></i>
-                    <span class="text-gray-600 text-sm ml-1">4.0</span>
+            @forelse($drinks as $menu)
+            <div class="group bg-white rounded-[2rem] border border-gray-100 shadow-[0_4px_20px_rgba(0,0,0,0.03)] flex flex-col p-5 transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_20px_40px_rgba(3,110,166,0.1)] min-h-[380px] animate-fade-in-left hide-before-animation relative overflow-hidden">
+                <!-- Image Container -->
+                <div class="relative w-full h-48 bg-[#f8fafc] rounded-2xl flex justify-center items-center overflow-hidden mb-5">
+                    <div class="absolute inset-0 bg-gradient-to-b from-transparent to-black/5 z-10"></div>
+                @if($menu->image)
+                    @if(str_contains($menu->image, 'img/'))
+                        <!-- Gambar dari public/img/ -->
+                        <img src="{{ asset($menu->image) }}" alt="{{ $menu->name }}" class="object-cover w-full h-full group-hover:scale-110 transition-transform duration-700 relative z-0">
+                    @elseif(file_exists(public_path('storage/menus/' . $menu->image)))
+                        <!-- Gambar dari storage -->
+                        <img src="{{ asset('storage/menus/' . $menu->image) }}" alt="{{ $menu->name }}" class="object-cover w-full h-full group-hover:scale-110 transition-transform duration-700 relative z-0">
+                    @else
+                        <!-- Gambar tidak ditemukan -->
+                        <div class="w-full h-32 bg-gray-200 rounded-lg flex items-center justify-center mb-4">
+                            <i class="fas fa-glass-whiskey text-gray-400 text-2xl"></i>
+                        </div>
+                    @endif
+                @else
+                    <div class="w-full h-32 bg-gray-200 rounded-lg flex items-center justify-center mb-4">
+                        <i class="fas fa-image text-gray-400 text-2xl"></i>
+                    </div>
+                @endif
                 </div>
-                <p class="text-[#036EA6] font-bold text-xl mb-4">{{ $item['price'] }}</p>
+                <div class="flex items-start justify-between mb-2">
+                    <h3 class="font-bold text-xl text-gray-900 group-hover:text-[#036EA6] transition-colors leading-tight line-clamp-2 pr-2">{{ $menu->name }}</h3>
+                    <div class="flex items-center bg-yellow-50 px-2 py-1 rounded-md shrink-0">
+                        <i class="fas fa-star text-yellow-400 text-xs"></i>
+                        <span class="font-bold text-gray-700 text-xs ml-1">4.9</span>
+                    </div>
+                </div>
+                <p class="text-gray-500 text-sm mb-4 line-clamp-2 flex-grow">Refreshing beverages to pair perfectly with your meals.</p>
+                
+                <div class="mt-auto flex items-end justify-between border-t border-gray-50 pt-4">
+                    <div>
+                        <p class="text-xs text-gray-400 line-through font-medium mb-0.5">Rp {{ number_format($menu->price + 2000, 0, ',', '.') }}</p>
+                        <p class="text-2xl font-extrabold text-[#036EA6] leading-none">Rp {{ number_format($menu->price, 0, ',', '.') }}</p>
+                    </div>
 
-                <!-- Tombol tambah ke keranjang -->
-                <form action="{{ route('cart.add') }}" method="POST">
-                    @csrf
-                    <input type="hidden" name="id" value="{{ $item['id'] }}"> {{-- Menggunakan ID unik --}}
-                    <input type="hidden" name="name" value="{{ $item['title'] }}">
-                    <input type="hidden" name="price" value="{{ preg_replace('/[^0-9]/', '', $item['price']) }}">
-                    <input type="hidden" name="img" value="{{ $item['img'] }}">
-                    <button type="submit" class="bg-[#036EA6] hover:bg-[#025a87] active:scale-95 rounded-full w-10 h-10 flex items-center justify-center transition-all duration-200 mt-auto">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
-                        </svg>
-                    </button>
-                </form>
+          <!-- Tombol tambah ke keranjang -->
+            <form action="{{ route('cart.add') }}" method="POST">
+                @csrf
+                <input type="hidden" name="id" value="menu_{{ $menu->id }}">
+                <input type="hidden" name="name" value="{{ $menu->name }}">
+                <input type="hidden" name="price" value="{{ $menu->price }}">
+                <input type="hidden" name="img" value="{{ $menu->image }}"> <!-- Pastikan ini mengirim image path yang benar -->
+                <button type="submit" class="w-12 h-12 rounded-full bg-blue-50 text-[#036EA6] flex items-center justify-center hover:bg-gradient-to-r hover:from-[#036EA6] hover:to-[#00A3FF] hover:text-white transition-all duration-300 hover:rotate-90 shadow-sm hover:shadow-md mt-auto">
+                    <i class="fas fa-plus text-lg"></i>
+                </button>
+            </form>
             </div>
-            @endforeach
+            </div>
+            @empty
+            <div class="col-span-full text-center py-12">
+                <p class="text-gray-500 text-lg">Belum ada menu minuman.</p>
+            </div>
+            @endforelse
         </div>
     </section>
 
     <!-- Stats Section -->
-    <section class="flex flex-col sm:flex-row justify-center items-center gap-8 mb-12">
-        <div class="bg-[#036EA6] text-white rounded-xl p-8 text-center shadow-lg w-full max-w-xs transition-all duration-300 hover:scale-105 hover:bg-[#025a87] animate-fade-in hide-before-animation" style="animation-delay: 1s;">
-            <p class="text-4xl font-bold mb-2">10K+</p>
-            <p class="text-lg">Total customers</p>
+    <section class="flex flex-col sm:flex-row justify-center items-stretch gap-8 mb-12">
+        <div class="bg-gradient-to-tr from-[#036EA6] to-[#00A3FF] text-white rounded-3xl p-10 text-center shadow-[0_10px_30px_rgba(3,110,166,0.3)] w-full max-w-xs transition-all duration-300 hover:scale-105 hover:-translate-y-2 animate-fade-in hide-before-animation relative overflow-hidden group">
+            <div class="absolute -right-6 -top-6 w-24 h-24 bg-white/20 rounded-full blur-xl group-hover:scale-150 transition-transform duration-700"></div>
+            <p class="text-5xl font-extrabold mb-3">10K+</p>
+            <p class="text-lg font-medium opacity-90">Total Customers</p>
         </div>
-        <div class="bg-[#036EA6] text-white rounded-xl p-8 text-center shadow-lg w-full max-w-xs transition-all duration-300 hover:scale-105 hover:bg-[#025a87] animate-fade-in hide-before-animation" style="animation-delay: 1.1s;">
-            <p class="text-4xl font-bold mb-2">12K</p>
-            <p class="text-lg">Total destinations</p>
+        <div class="bg-white text-gray-900 border border-gray-100 rounded-3xl p-10 text-center shadow-[0_10px_30px_rgba(0,0,0,0.05)] w-full max-w-xs transition-all duration-300 hover:scale-105 hover:-translate-y-2 animate-fade-in hide-before-animation relative overflow-hidden group">
+            <div class="absolute -right-6 -top-6 w-24 h-24 bg-[#036EA6]/5 rounded-full blur-xl group-hover:scale-150 transition-transform duration-700"></div>
+            <p class="text-5xl font-extrabold mb-3 text-[#036EA6]">12K</p>
+            <p class="text-lg font-medium text-gray-500">Total Orders</p>
         </div>
     </section>
 </main>

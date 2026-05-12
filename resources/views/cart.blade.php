@@ -3,17 +3,53 @@
 @section('title', 'Cart & Checkout')
 
 @section('content')
-<div class="max-w-4xl mx-auto py-10 px-6">
-    <h2 class="text-3xl font-bold mb-6 text-center text-gray-800">Your Cart</h2>
+<div class="max-w-4xl mx-auto py-16 px-6">
+    <div class="text-center mb-10">
+        <span class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-50 text-[#036EA6] font-bold text-sm tracking-widest uppercase mb-4 border border-blue-100">Checkout</span>
+        <h2 class="text-4xl lg:text-5xl font-extrabold text-gray-900 tracking-tight">Your Cart</h2>
+    </div>
+
+    @if(session('error'))
+        <div class="mb-6 p-4 rounded-xl bg-red-100 border border-red-300 text-red-800 text-center font-medium">
+            {{ session('error') }}
+        </div>
+    @endif
+
+    @if(session('success'))
+        <div class="mb-6 p-4 rounded-xl bg-green-100 border border-green-300 text-green-800 text-center font-medium">
+            {{ session('success') }}
+        </div>
+    @endif
 
     @if(session('cart') && count(session('cart')) > 0)
         @foreach(session('cart') as $id => $item)
-        <div class="flex flex-col md:flex-row justify-between items-center bg-white shadow-lg rounded-xl p-5 mb-5 transition-all duration-300 hover:shadow-xl">
-            <div class="flex items-center gap-5 w-full md:w-auto">
-                <img src="{{ asset('img/'.$item['img']) }}" alt="{{ $item['name'] }}" class="w-24 h-24 object-cover rounded-lg shadow-sm">
+        <div class="flex flex-col md:flex-row justify-between items-center bg-white border border-gray-100 shadow-[0_4px_20px_rgba(0,0,0,0.03)] hover:shadow-[0_10px_30px_rgba(3,110,166,0.1)] rounded-[1.5rem] p-6 mb-6 transition-all duration-300">
+            <div class="flex items-center gap-6 w-full md:w-auto">
+                <!-- PERBAIKAN: Handle gambar dari storage dan public/img -->
+                @if($item['img'])
+                    @if(str_contains($item['img'], 'img/'))
+                        <!-- Gambar dari public/img/ -->
+                        <img src="{{ asset($item['img']) }}" alt="{{ $item['name'] }}" class="w-24 h-24 object-cover rounded-lg shadow-sm">
+                    @elseif(file_exists(public_path('storage/menus/' . $item['img'])))
+                        <!-- Gambar dari storage -->
+                        <img src="{{ asset('storage/menus/' . $item['img']) }}" alt="{{ $item['name'] }}" class="w-24 h-24 object-cover rounded-lg shadow-sm">
+                    @else
+                        <!-- Gambar tidak ditemukan, tampilkan placeholder -->
+                        <div class="w-24 h-24 bg-gray-200 rounded-lg flex items-center justify-center shadow-sm">
+                            <i class="fas fa-image text-gray-400 text-xl"></i>
+                        </div>
+                    @endif
+                @else
+                    <!-- Jika tidak ada gambar -->
+                    <div class="w-24 h-24 bg-gray-200 rounded-lg flex items-center justify-center shadow-sm">
+                        <i class="fas fa-image text-gray-400 text-xl"></i>
+                    </div>
+                @endif
+                
                 <div class="flex-grow">
-                    <h3 class="font-bold text-xl text-gray-800">{{ $item['name'] }}</h3>
-                    <p class="text-gray-700 text-lg mt-1">Rp {{ number_format($item['price'], 0, ',', '.') }}</p>
+                    <h3 class="font-bold text-2xl text-gray-900">{{ $item['name'] }}</h3>
+                    <p class="text-[#036EA6] font-extrabold text-xl mt-1">Rp {{ number_format($item['price'], 0, ',', '.') }}</p>
+                    <p class="text-gray-500 font-medium text-sm mt-1">Qty: {{ $item['quantity'] }} pcs</p>
                 </div>
             </div>
             
@@ -30,10 +66,10 @@
                                text-xl font-semibold border-r border-gray-300">
                         -
                     </button>
-                    <input type="number" name="quantity" value="{{ $item['quantity'] }}" min="1" 
+                    <input type="number" name="quantity" value="{{ $item['quantity'] }}" min="50" 
                         class="w-16 h-10 text-center text-gray-900 text-lg 
                                appearance-none focus:outline-none bg-white font-medium"
-                        onchange="this.form.submit()"> {{-- Tambahkan ini untuk submit otomatis --}}
+                        onchange="if(this.value < 50) { alert('Minimal order adalah 50 pcs per item!'); this.value = 50; } this.form.submit();">
                     <button type="submit" name="action" value="increase" 
                         class="bg-gray-50 text-gray-700 h-10 w-10 flex items-center justify-center 
                                hover:bg-gray-100 transition-colors duration-200 
@@ -47,24 +83,19 @@
                 <form action="{{ route('cart.remove') }}" method="POST">
                     @csrf
                     <input type="hidden" name="id" value="{{ $id }}">
-                    <button type="submit" 
-                            class="text-red-600 hover:text-red-800 transition-colors duration-200 
-                                   font-medium text-md px-3 py-2 rounded-md hover:bg-red-50">
-                        Hapus
+                    <button type="submit" class="w-10 h-10 flex items-center justify-center rounded-full bg-red-50 text-red-500 hover:bg-red-500 hover:text-white transition-all duration-300 shadow-sm" title="Remove Item">
+                        <i class="fas fa-trash-alt"></i>
                     </button>
                 </form>
             </div>
         </div>
         @endforeach
 
-       <div class="text-center mt-8">
-    <a href="{{ route('checkout') }}" class="bg-[#036EA6] text-white px-8 py-4 rounded-xl 
-                                          text-xl font-semibold tracking-wide 
-                                          hover:bg-[#025a87] transition duration-300 
-                                          shadow-lg hover:shadow-xl focus:outline-none focus:ring-4 focus:ring-[#036EA6] focus:ring-opacity-50">
-        Checkout 🛍️
-    </a>
-</div>
+        <div class="text-center mt-12">
+            <a href="{{ route('checkout') }}" class="inline-flex btn-gradient text-white px-10 py-5 rounded-full text-xl font-bold tracking-wide shadow-[0_8px_25px_rgba(3,110,166,0.3)] hover:shadow-[0_12px_30px_rgba(3,110,166,0.4)] transition-all items-center gap-3 group">
+                Proceed to Checkout <i class="fas fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
+            </a>
+        </div>
     @else
         <p class="text-center text-gray-500 text-xl py-10">Keranjangmu kosong 🛍️</p>
     @endif

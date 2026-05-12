@@ -8,7 +8,11 @@
             <div class="relative">
                 <div class="w-28 h-28 rounded-full bg-gray-200 flex items-center justify-center text-gray-400 text-5xl overflow-hidden">
                     @if($user->photo)
-                        <img src="{{ asset('storage/photos/' . $user->photo) }}" alt="Profile Photo" class="w-full h-full object-cover">
+                        <img src="{{ asset('storage/photos/' . $user->photo) }}" 
+                             alt="Profile Photo" 
+                             class="w-full h-full object-cover"
+                             onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <i class="fas fa-user" style="display: none;"></i>
                     @else
                         <i class="fas fa-user"></i>
                     @endif
@@ -23,6 +27,8 @@
         <!-- Form Edit -->
         <form action="{{ route('profile.update') }}" method="POST" enctype="multipart/form-data" class="grid grid-cols-1 md:grid-cols-2 gap-10 mb-12">
             @csrf
+            @method('PUT') 
+
             <div class="md:col-span-2">
                 <label class="block text-base font-medium text-gray-600 mb-2">Foto Profil</label>
                 <input type="file" name="photo" accept="image/*"
@@ -37,6 +43,15 @@
                 <input type="text" name="name" value="{{ old('name', $user->name) }}"
                     class="w-full px-5 py-3 rounded-lg border border-gray-300 text-gray-700 focus:ring-2 focus:ring-blue-400 outline-none">
                 @error('name')
+                    <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                @enderror
+            </div>
+
+            <div>
+                <label class="block text-base font-medium text-gray-600 mb-2">Email</label>
+                <input type="email" name="email" value="{{ old('email', $user->email) }}"
+                    class="w-full px-5 py-3 rounded-lg border border-gray-300 text-gray-700 focus:ring-2 focus:ring-blue-400 outline-none">
+                @error('email')
                     <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
                 @enderror
             </div>
