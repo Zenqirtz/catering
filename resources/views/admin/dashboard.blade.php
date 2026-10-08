@@ -9,50 +9,50 @@
     <!-- Summary Cards -->
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         <!-- Total Pesanan Aktif -->
-        <div class="bg-gradient-to-tr from-[#036EA6] to-[#00A3FF] rounded-2xl p-6 text-white shadow-[0_10px_20px_rgba(3,110,166,0.2)] flex items-center justify-between group hover:-translate-y-1 transition-transform">
+        <div class="bg-[var(--olive)] p-6 text-white border border-[var(--olive-dark)] flex items-center justify-between group">
             <div>
-                <h3 class="text-sm font-medium opacity-90 mb-1 uppercase tracking-wider">Total Pesanan Aktif</h3>
-                <p class="text-4xl font-extrabold">{{ $totalActiveOrders }}</p>
-                <p class="text-xs opacity-75 mt-2">Sedang diproses</p>
+                <h3 class="text-xs font-bold opacity-80 mb-1 uppercase tracking-widest text-[#c4bfa6]">Total Pesanan Aktif</h3>
+                <p class="font-display text-4xl text-white">{{ $totalActiveOrders }}</p>
+                <p class="text-[11px] opacity-75 mt-2">Sedang diproses</p>
             </div>
-            <div class="bg-white/20 p-4 rounded-xl backdrop-blur-sm group-hover:scale-110 transition-transform">
-                <i class="fas fa-shopping-cart text-2xl"></i>
+            <div class="w-12 h-12 bg-white/10 flex items-center justify-center text-white text-xl">
+                <i class="fas fa-shopping-cart"></i>
             </div>
         </div>
 
         <!-- Total Pesanan Selesai -->
-        <div class="bg-white rounded-2xl p-6 text-gray-800 border border-gray-100 shadow-[0_4px_20px_rgba(0,0,0,0.03)] flex items-center justify-between group hover:-translate-y-1 transition-transform">
+        <div class="bg-white p-6 border border-[var(--line)] flex items-center justify-between">
             <div>
-                <h3 class="text-sm font-medium text-gray-500 mb-1 uppercase tracking-wider">Total Pesanan Selesai</h3>
-                <p class="text-4xl font-extrabold text-green-500">{{ $totalCompletedOrders }}</p>
-                <p class="text-xs text-gray-400 mt-2">Telah selesai</p>
+                <h3 class="text-xs font-bold text-[var(--muted)] mb-1 uppercase tracking-widest">Total Pesanan Selesai</h3>
+                <p class="font-display text-4xl text-emerald-700">{{ $totalCompletedOrders }}</p>
+                <p class="text-[11px] text-[var(--muted)] mt-2">Telah selesai</p>
             </div>
-            <div class="bg-green-50 p-4 rounded-xl group-hover:bg-green-100 transition-colors">
-                <i class="fas fa-check-circle text-2xl text-green-500"></i>
+            <div class="w-12 h-12 bg-emerald-50 text-emerald-700 border border-emerald-200 flex items-center justify-center text-xl">
+                <i class="fas fa-check-circle"></i>
             </div>
         </div>
 
         <!-- Total Pendapatan -->
-        <div class="bg-white rounded-2xl p-6 text-gray-800 border border-gray-100 shadow-[0_4px_20px_rgba(0,0,0,0.03)] flex items-center justify-between group hover:-translate-y-1 transition-transform">
+        <div class="bg-[var(--mustard)] p-6 text-[var(--ink)] border border-[var(--line)] flex items-center justify-between">
             <div>
-                <h3 class="text-sm font-medium text-gray-500 mb-1 uppercase tracking-wider">Total Pendapatan</h3>
-                <p class="text-3xl font-extrabold text-[#036EA6]">Rp {{ number_format($currentMonthRevenue, 0, ',', '.') }}</p>
-                <p class="text-xs text-gray-400 mt-2">Bulan ini</p>
+                <h3 class="text-xs font-bold text-[var(--ink)]/70 mb-1 uppercase tracking-widest">Total Pendapatan</h3>
+                <p class="font-display text-2xl sm:text-3xl text-[var(--ink)]">Rp {{ number_format($currentMonthRevenue, 0, ',', '.') }}</p>
+                <p class="text-[11px] text-[var(--ink)]/70 mt-2">Bulan ini</p>
             </div>
-            <div class="bg-blue-50 p-4 rounded-xl group-hover:bg-blue-100 transition-colors">
-                <i class="fas fa-wallet text-2xl text-[#036EA6]"></i>
+            <div class="w-12 h-12 bg-[var(--ink)] text-[var(--cream)] flex items-center justify-center text-xl">
+                <i class="fas fa-wallet"></i>
             </div>
         </div>
 
         <!-- Pelanggan Baru -->
-        <div class="bg-white rounded-2xl p-6 text-gray-800 border border-gray-100 shadow-[0_4px_20px_rgba(0,0,0,0.03)] flex items-center justify-between group hover:-translate-y-1 transition-transform">
+        <div class="bg-white p-6 border border-[var(--line)] flex items-center justify-between">
             <div>
-                <h3 class="text-sm font-medium text-gray-500 mb-1 uppercase tracking-wider">Pelanggan Baru</h3>
-                <p class="text-4xl font-extrabold text-purple-500">{{ $newCustomersThisMonth }}</p>
-                <p class="text-xs text-gray-400 mt-2">Bulan ini</p>
+                <h3 class="text-xs font-bold text-[var(--muted)] mb-1 uppercase tracking-widest">Pelanggan Baru</h3>
+                <p class="font-display text-4xl text-[var(--orange)]">{{ $newCustomersThisMonth }}</p>
+                <p class="text-[11px] text-[var(--muted)] mt-2">Bulan ini</p>
             </div>
-            <div class="bg-purple-50 p-4 rounded-xl group-hover:bg-purple-100 transition-colors">
-                <i class="fas fa-users text-2xl text-purple-500"></i>
+            <div class="w-12 h-12 bg-orange-50 text-[var(--orange)] border border-orange-200 flex items-center justify-center text-xl">
+                <i class="fas fa-users"></i>
             </div>
         </div>
     </div>
@@ -60,137 +60,137 @@
     <!-- Two Column Layout -->
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
         <!-- Recent Customers Section -->
-        <div class="bg-white rounded-2xl border border-gray-100 shadow-[0_4px_20px_rgba(0,0,0,0.03)] p-6">
-            <div class="flex justify-between items-center mb-6">
-                <h3 class="text-xl font-bold text-gray-800">Pelanggan Baru</h3>
-                <a href="{{ route('admin.export.customers') }}" class="bg-green-50 text-green-600 border border-green-100 px-4 py-2 rounded-full text-sm font-semibold hover:bg-green-500 hover:text-white transition-all">
+        <div class="bg-white border border-[var(--line)] p-6">
+            <div class="flex justify-between items-center mb-6 pb-4 border-b border-[var(--line)]">
+                <h3 class="font-display uppercase text-lg text-[var(--ink)]">Pelanggan Baru</h3>
+                <a href="{{ route('admin.export.customers') }}" class="btn-outline !py-1.5 !px-3 !text-[0.68rem]">
                     <i class="fas fa-download mr-1"></i> Export
                 </a>
             </div>
-            <div class="space-y-4">
+            <div class="space-y-3">
                 @forelse($recentCustomers as $customer)
-                <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                <div class="flex items-center justify-between p-3 bg-[var(--cream)] border border-[var(--line)]">
                     <div class="flex items-center space-x-3">
-                        <div class="w-10 h-10 bg-[#036EA6] rounded-full flex items-center justify-center text-white font-semibold">
+                        <div class="w-9 h-9 bg-[var(--ink)] text-[var(--cream)] font-bold flex items-center justify-center text-xs">
                             {{ strtoupper(substr($customer->name, 0, 1)) }}
                         </div>
                         <div>
-                            <p class="font-semibold text-gray-800">{{ $customer->name }}</p>
-                            <p class="text-sm text-gray-600">{{ $customer->email }}</p>
+                            <p class="font-bold text-sm text-[var(--ink)] uppercase tracking-wide">{{ $customer->name }}</p>
+                            <p class="text-xs text-[var(--muted)]">{{ $customer->email }}</p>
                         </div>
                     </div>
                     <div class="text-right">
-                        <p class="text-sm text-gray-600">{{ $customer->created_at->diffForHumans() }}</p>
-                        <p class="text-xs text-gray-500">{{ $customer->orders_count }} pesanan</p>
+                        <p class="text-xs text-[var(--muted)]">{{ $customer->created_at->diffForHumans() }}</p>
+                        <p class="text-[11px] text-[var(--ink)] font-semibold">{{ $customer->orders_count }} pesanan</p>
                     </div>
                 </div>
                 @empty
-                <p class="text-gray-500 text-center py-4">Belum ada pelanggan</p>
+                <p class="text-[var(--muted)] text-center py-4 text-sm">Belum ada pelanggan</p>
                 @endforelse
             </div>
         </div>
 
         <!-- Quick Stats Section -->
-        <div class="bg-white rounded-xl card-shadow p-6">
-            <h3 class="text-xl font-bold text-[#036EA6] mb-4">Statistik Cepat</h3>
-            <div class="space-y-4">
-                <div class="flex justify-between items-center p-3 bg-blue-50 rounded-lg">
+        <div class="bg-white border border-[var(--line)] p-6">
+            <h3 class="font-display uppercase text-lg text-[var(--ink)] mb-6 pb-4 border-b border-[var(--line)]">Statistik Cepat</h3>
+            <div class="space-y-3">
+                <div class="flex justify-between items-center p-3.5 bg-[var(--cream)] border border-[var(--line)]">
                     <div class="flex items-center space-x-3">
-                        <i class="fas fa-shopping-bag text-blue-600"></i>
-                        <span class="text-gray-700">Total Menu</span>
+                        <i class="fas fa-shopping-bag text-[var(--orange)]"></i>
+                        <span class="text-xs uppercase tracking-widest font-bold text-[var(--ink)]">Total Menu</span>
                     </div>
-                    <span class="font-bold text-blue-600">{{ \App\Models\Menu::count() }}</span>
+                    <span class="font-display text-xl text-[var(--ink)]">{{ \App\Models\Menu::count() }}</span>
                 </div>
-                <div class="flex justify-between items-center p-3 bg-green-50 rounded-lg">
+                <div class="flex justify-between items-center p-3.5 bg-[var(--cream)] border border-[var(--line)]">
                     <div class="flex items-center space-x-3">
-                        <i class="fas fa-users text-green-600"></i>
-                        <span class="text-gray-700">Total Pelanggan</span>
+                        <i class="fas fa-users text-[var(--olive)]"></i>
+                        <span class="text-xs uppercase tracking-widest font-bold text-[var(--ink)]">Total Pelanggan</span>
                     </div>
-                    <span class="font-bold text-green-600">{{ \App\Models\User::where('is_admin', false)->count() }}</span>
+                    <span class="font-display text-xl text-[var(--ink)]">{{ \App\Models\User::where('is_admin', false)->count() }}</span>
                 </div>
-                <div class="flex justify-between items-center p-3 bg-purple-50 rounded-lg">
+                <div class="flex justify-between items-center p-3.5 bg-[var(--cream)] border border-[var(--line)]">
                     <div class="flex items-center space-x-3">
-                        <i class="fas fa-chart-line text-purple-600"></i>
-                        <span class="text-gray-700">Pesanan Hari Ini</span>
+                        <i class="fas fa-chart-line text-[var(--mustard)]"></i>
+                        <span class="text-xs uppercase tracking-widest font-bold text-[var(--ink)]">Pesanan Hari Ini</span>
                     </div>
-                    <span class="font-bold text-purple-600">{{ \App\Models\Order::whereDate('created_at', today())->count() }}</span>
+                    <span class="font-display text-xl text-[var(--ink)]">{{ \App\Models\Order::whereDate('created_at', today())->count() }}</span>
                 </div>
             </div>
         </div>
     </div>
 
     <!-- Pesanan Terbaru Table -->
-    <div class="bg-white rounded-2xl border border-gray-100 shadow-[0_4px_20px_rgba(0,0,0,0.03)] overflow-hidden" id="orders">
-        <div class="p-6 border-b border-gray-100 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+    <div class="bg-white border border-[var(--line)] overflow-hidden" id="orders">
+        <div class="p-6 border-b border-[var(--line)] flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
             <div>
-                <h2 class="text-xl font-bold text-gray-800">Pesanan Terbaru</h2>
-                <p class="text-sm text-gray-500 mt-1">Daftar pesanan yang masuk ke sistem</p>
+                <h2 class="font-display uppercase text-xl text-[var(--ink)]">Pesanan Terbaru</h2>
+                <p class="text-xs text-[var(--muted)] mt-0.5">Daftar pesanan yang masuk ke sistem</p>
             </div>
-            <a href="{{ route('admin.export.orders') }}" class="bg-green-50 text-green-600 border border-green-100 px-5 py-2.5 rounded-full hover:bg-green-500 hover:text-white transition-all text-sm font-semibold flex items-center">
-                <i class="fas fa-download mr-2"></i> Export Data
+            <a href="{{ route('admin.export.orders') }}" class="btn-solid !py-2 !px-4 !text-[0.7rem]">
+                <i class="fas fa-download mr-1"></i> Export Data
             </a>
         </div>
         
-        <div class="overflow-x-auto rounded-lg border border-gray-200">
-            <table class="min-w-full divide-y divide-gray-200">
-                <thead class="bg-gray-50">
-                    <tr>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Nama</th>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Tanggal Order</th>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Nomor HP</th>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Pesanan</th>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Total</th>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+        <div class="overflow-x-auto">
+            <table class="w-full text-left border-collapse">
+                <thead>
+                    <tr class="bg-[var(--cream-deep)] border-b border-[var(--line)] text-xs font-bold uppercase tracking-widest text-[var(--ink)]">
+                        <th class="p-4">Nama</th>
+                        <th class="p-4">Tanggal Order</th>
+                        <th class="p-4">Nomor HP</th>
+                        <th class="p-4">Pesanan</th>
+                        <th class="p-4">Total</th>
+                        <th class="p-4">Status</th>
                     </tr>
                 </thead>
-                <tbody class="bg-white divide-y divide-gray-200">
+                <tbody class="divide-y divide-[var(--line)] text-sm">
                     @forelse($recentOrders as $order)
-                    <tr class="hover:bg-gray-50">
-                        <td class="px-6 py-4 whitespace-nowrap">
-                            <div class="flex items-center">
-                                <div class="flex-shrink-0 h-10 w-10 bg-[#036EA6] rounded-full flex items-center justify-center text-white font-semibold">
+                    <tr class="hover:bg-[var(--cream)]/60 transition-colors">
+                        <td class="p-4 whitespace-nowrap">
+                            <div class="flex items-center space-x-3">
+                                <div class="w-8 h-8 bg-[var(--ink)] text-[var(--cream)] font-bold flex items-center justify-center text-xs shrink-0">
                                     {{ substr($order->user->name ?? 'N', 0, 1) }}
                                 </div>
-                                <div class="ml-4">
-                                    <div class="text-sm font-medium text-gray-900">{{ $order->user->name ?? 'N/A' }}</div>
-                                    <div class="text-sm text-gray-500">{{ $order->user->email ?? '-' }}</div>
+                                <div>
+                                    <div class="font-bold text-xs uppercase tracking-wide text-[var(--ink)]">{{ $order->user->name ?? 'N/A' }}</div>
+                                    <div class="text-xs text-[var(--muted)]">{{ $order->user->email ?? '-' }}</div>
                                 </div>
                             </div>
                         </td>
-                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                            <div class="font-medium">{{ $order->created_at->format('d M, Y') }}</div>
-                            <div class="text-gray-400">{{ $order->created_at->format('h:i A') }}</div>
+                        <td class="p-4 whitespace-nowrap text-xs text-[var(--muted)] font-mono">
+                            <div class="font-bold text-[var(--ink)]">{{ $order->created_at->format('d M, Y') }}</div>
+                            <div>{{ $order->created_at->format('H:i') }}</div>
                         </td>
-                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                        <td class="p-4 whitespace-nowrap text-xs text-[var(--muted)] font-mono">
                             {{ $order->user->phone_number ?? '-' }}
                         </td>
-                        <td class="px-6 py-4 text-sm text-gray-500 max-w-xs">
+                        <td class="p-4 text-xs text-[var(--ink)] max-w-xs">
                             <div class="truncate">
                                 @foreach($order->items as $item)
                                     {{ $item->product_name ?? 'Product' }} ({{ $item->quantity ?? 0 }}){{ !$loop->last ? ', ' : '' }}
                                 @endforeach
                             </div>
                         </td>
-                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                        <td class="p-4 whitespace-nowrap font-display text-sm">
                         @php
                             $orderTotal = $order->total_amount ?? $order->total_price ?? 0;
                         @endphp
                         @if($orderTotal > 0)
-                            <span class="text-green-600">Rp {{ number_format($orderTotal, 0, ',', '.') }}</span>
+                            <span class="text-[var(--ink)] font-bold">Rp {{ number_format($orderTotal, 0, ',', '.') }}</span>
                         @else
-                            <span class="text-red-500">Rp 0</span>
+                            <span class="text-red-600">Rp 0</span>
                         @endif
                     </td>
-                        <td class="px-6 py-4 whitespace-nowrap">
+                        <td class="p-4 whitespace-nowrap">
                             <form action="{{ route('admin.updateStatus', $order->id) }}" method="POST" class="inline-block">
                                 @csrf
                                 @method('PUT')
                                 <select name="status" onchange="this.form.submit()" 
-                                    class="px-3 py-2 text-xs font-semibold rounded-full border-0 focus:ring-2 focus:ring-[#036EA6] focus:outline-none cursor-pointer
+                                    class="text-[0.68rem] font-bold uppercase tracking-wider px-2.5 py-1 border border-[var(--line)] focus:outline-none cursor-pointer
                                     @if($order->status == 'pending') bg-gray-100 text-gray-800
                                     @elseif($order->status == 'invalid') bg-red-100 text-red-800
-                                    @elseif($order->status == 'process') bg-blue-100 text-blue-800
-                                    @elseif($order->status == 'done') bg-green-100 text-green-800
+                                    @elseif($order->status == 'process') bg-[var(--mustard)]/20 text-[var(--ink)]
+                                    @elseif($order->status == 'done') bg-[var(--olive)] text-white
                                     @else bg-gray-100 text-gray-800 @endif">
                                     <option value="pending" {{ $order->status == 'pending' ? 'selected' : '' }}>Pending</option>
                                     <option value="invalid" {{ $order->status == 'invalid' ? 'selected' : '' }}>Invalid</option>
@@ -202,9 +202,9 @@
                     </tr>
                     @empty
                     <tr>
-                        <td colspan="6" class="px-6 py-8 text-center text-gray-500">
-                            <i class="fas fa-inbox text-4xl text-gray-300 mb-2"></i>
-                            <p class="text-lg">Belum ada pesanan</p>
+                        <td colspan="6" class="p-8 text-center text-[var(--muted)]">
+                            <i class="fas fa-inbox text-3xl text-[var(--muted)] mb-2"></i>
+                            <p class="text-sm">Belum ada pesanan</p>
                         </td>
                     </tr>
                     @endforelse
@@ -214,27 +214,27 @@
         
         <!-- Pagination -->
         @if($recentOrders->hasPages())
-        <div class="px-6 py-4 bg-gray-50 border-t border-gray-200 flex items-center justify-between">
-            <div class="text-sm text-gray-700">
+        <div class="p-4 bg-[var(--cream)] border-t border-[var(--line)] flex items-center justify-between text-xs">
+            <div class="text-[var(--muted)]">
                 Menampilkan {{ $recentOrders->firstItem() }} - {{ $recentOrders->lastItem() }} dari {{ $recentOrders->total() }} pesanan
             </div>
             <div class="flex space-x-2">
                 @if($recentOrders->onFirstPage())
-                <span class="px-3 py-1 bg-gray-100 text-gray-400 rounded-lg cursor-not-allowed">
+                <span class="px-3 py-1 bg-gray-200 text-gray-400 cursor-not-allowed">
                     <i class="fas fa-chevron-left"></i>
                 </span>
                 @else
-                <a href="{{ $recentOrders->previousPageUrl() }}" class="px-3 py-1 bg-white text-gray-700 rounded-lg hover:bg-gray-100 transition border border-gray-200">
+                <a href="{{ $recentOrders->previousPageUrl() }}" class="px-3 py-1 bg-white text-[var(--ink)] border border-[var(--line)] hover:bg-[var(--cream-deep)]">
                     <i class="fas fa-chevron-left"></i>
                 </a>
                 @endif
                 
                 @if($recentOrders->hasMorePages())
-                <a href="{{ $recentOrders->nextPageUrl() }}" class="px-3 py-1 bg-white text-gray-700 rounded-lg hover:bg-gray-100 transition border border-gray-200">
+                <a href="{{ $recentOrders->nextPageUrl() }}" class="px-3 py-1 bg-white text-[var(--ink)] border border-[var(--line)] hover:bg-[var(--cream-deep)]">
                     <i class="fas fa-chevron-right"></i>
                 </a>
                 @else
-                <span class="px-3 py-1 bg-gray-100 text-gray-400 rounded-lg cursor-not-allowed">
+                <span class="px-3 py-1 bg-gray-200 text-gray-400 cursor-not-allowed">
                     <i class="fas fa-chevron-right"></i>
                 </span>
                 @endif
