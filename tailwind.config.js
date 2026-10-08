@@ -8,42 +8,44 @@ module.exports = {
   ],
   theme: {
     extend: {
+      colors: {
+        // FourYourCatering editorial palette
+        cream: '#FBF5EA',
+        'cream-deep': '#F4EAD9',
+        ink: '#191919',
+        olive: '#454B21',
+        accent: '#E8552B',
+        mustard: '#E9B92B',
+        muted: '#6C6357',
+      },
+      fontFamily: {
+        display: ['Archivo', 'sans-serif'],
+        serif: ['Fraunces', 'serif'],
+        sans: ['Inter', 'sans-serif'],
+      },
       keyframes: {
-        // Animasi fade-in kustom
         fadeInDown: {
-          'from': { opacity: 0, transform: 'translateY(-20px)' },
+          'from': { opacity: 0, transform: 'translateY(-16px)' },
           'to': { opacity: 1, transform: 'translateY(0)' },
         },
         fadeInUp: {
-          'from': { opacity: 0, transform: 'translateY(20px)' },
+          'from': { opacity: 0, transform: 'translateY(16px)' },
           'to': { opacity: 1, transform: 'translateY(0)' },
-        },
-        fadeInRight: {
-          'from': { opacity: 0, transform: 'translateX(-20px)' },
-          'to': { opacity: 1, transform: 'translateX(0)' },
-        },
-        fadeInLeft: {
-          'from': { opacity: 0, transform: 'translateX(20px)' },
-          'to': { opacity: 1, transform: 'translateX(0)' },
         },
         fadeIn: {
           'from': { opacity: 0 },
           'to': { opacity: 1 },
         },
-        // Animasi pulse-glow yang sudah ada
-        'pulse-glow': {
-          '0%, 100%': { opacity: '0.3', transform: 'scale(1)' },
-          '50%': { opacity: '0.6', transform: 'scale(1.05)' },
+        'spin-slow': {
+          'from': { transform: 'rotate(0deg)' },
+          'to': { transform: 'rotate(360deg)' },
         },
       },
       animation: {
-        // Daftarkan animasi kustom agar bisa digunakan sebagai utility class
-        'fade-in-down': 'fadeInDown 0.8s ease-out forwards',
-        'fade-in-up': 'fadeInUp 0.8s ease-out forwards',
-        'fade-in-right': 'fadeInRight 0.6s ease-out forwards',
-        'fade-in-left': 'fadeInLeft 0.6s ease-out forwards',
-        'fade-in': 'fadeIn 0.6s ease-out forwards',
-        'pulse-glow': 'pulse-glow 4s ease-in-out infinite', // Untuk menggantikan animate-pulse bawaan jika ingin pakai yang kustom
+        'fade-in-down': 'fadeInDown 0.7s ease-out forwards',
+        'fade-in-up': 'fadeInUp 0.7s ease-out forwards',
+        'fade-in': 'fadeIn 0.7s ease-out forwards',
+        'spin-slow': 'spin-slow 22s linear infinite',
       },
     },
   },

@@ -2,39 +2,57 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Hilangkan scrollbar horizontal */
-.scrollbar-hide::-webkit-scrollbar {
-  display: none;
+/*
+ * FourYourCatering — Editorial design system
+ * Warm cream canvas, ink text, olive + orange-red + mustard accents.
+ * Flat colour blocks, sharp corners, typographic hierarchy. No gradients.
+ */
+
+:root {
+    --cream: #FBF5EA;
+    --cream-deep: #F4EAD9;
+    --ink: #191919;
+    --olive: #454B21;
+    --orange: #E8552B;
+    --mustard: #E9B92B;
+    --muted: #6C6357;
+    --line: rgba(25, 25, 25, 0.12);
 }
+
+/* Hide horizontal scrollbar (horizontal scrollers) */
+.scrollbar-hide::-webkit-scrollbar { display: none; }
 .scrollbar-hide {
-  -ms-overflow-style: none;
-  scrollbar-width: none;
-}
-/* Smooth appearance - (Ini mungkin berasal dari library AOS, biarkan saja jika Anda menggunakannya) */
-[data-aos] {
-  transition-property: transform, opacity !important;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
 }
 
-/* Staggering (penundaan berurutan) untuk item grid agar lebih menarik */
-/* Ini diperlukan karena Tailwind belum memiliki utility untuk nth-child delay */
-
-/* Animasi untuk Special Foods (muncul dari kanan) */
-.grid > div.animate-fade-in-right:nth-child(1) { animation-delay: 0.3s; }
-.grid > div.animate-fade-in-right:nth-child(2) { animation-delay: 0.4s; }
-.grid > div.animate-fade-in-right:nth-child(3) { animation-delay: 0.5s; }
-.grid > div.animate-fade-in-right:nth-child(4) { animation-delay: 0.6s; }
-.grid > div.animate-fade-in-right:nth-child(5) { animation-delay: 0.7s; }
-.grid > div.animate-fade-in-right:nth-child(6) { animation-delay: 0.8s; }
-.grid > div.animate-fade-in-right:nth-child(7) { animation-delay: 0.9s; } /* Sesuaikan jika ada lebih banyak item */
-
-/* Animasi untuk Special Beverages (muncul dari kiri) */
-.grid > div.animate-fade-in-left:nth-child(1) { animation-delay: 0.3s; }
-.grid > div.animate-fade-in-left:nth-child(2) { animation-delay: 0.4s; }
-.grid > div.animate-fade-in-left:nth-child(3) { animation-delay: 0.5s; }
-.grid > div.animate-fade-in-left:nth-child(4) { animation-delay: 0.6s; } /* Sesuaikan jika ada lebih banyak item */
-
-/* Class untuk memastikan elemen tersembunyi sebelum animasi dimulai */
-/* Ini penting karena 'forwards' hanya mempertahankan keadaan akhir animasi, bukan keadaan awalnya */
-.hide-before-animation {
-    opacity: 0;
+/* Simple entrance animations used across views */
+@keyframes fadeInDown {
+    from { opacity: 0; transform: translateY(-16px); }
+    to   { opacity: 1; transform: translateY(0); }
 }
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+.animate-fade-in-down { animation: fadeInDown 0.7s ease-out forwards; }
+.animate-fade-in-up   { animation: fadeInUp 0.7s ease-out forwards; }
+.animate-fade-in      { animation: fadeIn 0.7s ease-out forwards; }
+
+.hide-before-animation { opacity: 0; }
+
+/*
+ * Legacy compatibility: older views (cart/checkout) still use .btn-gradient.
+ * Map it to the flat accent button so nothing breaks visually.
+ */
+.btn-gradient {
+    background-color: var(--orange);
+    color: #fff;
+    transition: background-color 0.2s ease;
+}
+.btn-gradient:hover { background-color: #cf451f; }
